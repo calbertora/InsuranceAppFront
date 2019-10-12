@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InsuranceService } from 'src/app/services/insurance.service';
 
 @Component({
   selector: 'app-insurance-list',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InsuranceListComponent implements OnInit {
 
-  constructor() { }
+  insurances: any;
+  constructor( private insuranceService: InsuranceService) {
+    this.insurances = [];
+  }
 
   ngOnInit() {
+    this.insuranceService.getInsurances().subscribe(
+      response => {
+        this.insurances = response;
+      }
+    );
   }
 
 }

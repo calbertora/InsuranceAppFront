@@ -1,1 +1,25 @@
-<p>insurance-list works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Fecha Inicio</th>
+      <th>Covertura</th>
+      <th>Precio</th>
+      <th>Tipo de Riesgo</th>
+      <th>Porcentaje</th>
+      <th>Tipos de Póliza</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let insurance of insurances">
+      <td>{{ insurance.Name}}</td>
+      <td>{{ insurance.Description}}</td>
+      <td>{{ insurance.InitialDate}}</td>
+      <td>{{ insurance.Coverage}} meses</td>
+      <td>{{ insurance.Price}}</td>
+      <td>{{ insurance.TypeOfRisk}}</td>
+      <td>{{ insurance.CoveragePercentage}}</td>
+      <td> <div *ngFor="let policyTypes of insurance.PolicyTypes">{{policyTypes.ID - policyTypes.Description}}</div></td>
+  </tbody>
+</table>
