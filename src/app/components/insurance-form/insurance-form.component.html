@@ -1,0 +1,47 @@
+<form>
+  <div class="form-group">
+    <label>Nombre del seguro</label>
+    <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre de seguro">
+  </div>
+  <div class="form-group">
+    <label>Descripción del seguro</label>
+    <input type="text" class="form-control form-control-sm"  placeholder="Ingresar descripción de seguro">
+  </div>
+  <div class="form-group">
+    <label>Fecha de inicio</label>
+    <input type="date" class="form-control form-control-sm">
+  </div>
+  <div class="form-group">
+    <label>Covertura (meses)</label>
+    <input type="number" class="form-control form-control-sm" placeholder="Covertura en meses">
+  </div>
+  <div class="form-group">
+    <label>Precio</label>
+    <input type="number" step="0.01" class="form-control form-control-sm" placeholder="Precio del seguro">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Tipo de riesgo</label>
+    <select class="form-control form-control-sm">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Porcentaje de covertura</label>
+    <input type="number" step="0.01" min="0" max="100"class="form-control form-control-sm" placeholder="Porcentaje de covertura 0-100">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect2">Tipos de Covertura</label>
+    <select multiple class="form-control form-control-sm" id="exampleFormControlSelect2">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Crear</button>
+</form>

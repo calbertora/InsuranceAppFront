@@ -5,11 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './components/home/home.component';
+import { InsuranceFormComponent } from './components/insurance-form/insurance-form.component';
+import { InsuranceListComponent } from './components/insurance-list/insurance-list.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    InsuranceFormComponent,
+    InsuranceListComponent
   ],
   imports: [
     BrowserModule,
