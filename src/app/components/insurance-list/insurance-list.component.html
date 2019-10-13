@@ -9,6 +9,7 @@
       <th>Tipo de Riesgo</th>
       <th>Porcentaje</th>
       <th>Tipos de Póliza</th>
+      <th>Acción</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,10 @@
       <td>{{ insurance.Price}}</td>
       <td>{{ insurance.TypeOfRisk}}</td>
       <td>{{ insurance.CoveragePercentage}}</td>
-      <td> <div *ngFor="let policyTypes of insurance.PolicyTypes">{{policyTypes.ID - policyTypes.Description}}</div></td>
+      <td> <div *ngFor="let policyType of insurance.PolicyTypes">{{policyType.Description}}</div></td>
+      <td>
+        <button type="button" class="btn btn-primary">Editar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteInsurance(insurance.Id)">Eliminar</button>
+      </td>
   </tbody>
 </table>

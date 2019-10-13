@@ -42,11 +42,7 @@
   <div class="form-group">
     <label for="exampleFormControlSelect1">Tipo de riesgo</label>
     <select class="form-control form-control-sm" formControlName="riskType">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+        <option *ngFor="let typeOfRisk of typeOfRisks" [value]="typeOfRisk.id">{{ typeOfRisk.description }}</option>
     </select>
     <div *ngIf="insuranceForm.controls['riskType'].invalid && (insuranceForm.controls['riskType'].dirty || insuranceForm.controls['riskType'].touched)">
       <div class="text-danger" *ngIf="insuranceForm.controls['riskType'].errors.required">
@@ -69,11 +65,7 @@
   <div class="form-group">
     <label for="exampleFormControlSelect2">Tipos de Covertura</label>
     <select multiple class="form-control form-control-sm" id="exampleFormControlSelect2" formControlName="policyTypes">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
+      <option *ngFor="let typeOfCoverage of typeOfCoverages" [value]="typeOfCoverage.id">{{ typeOfCoverage.description }}</option>
     </select>
     <div *ngIf="insuranceForm.controls['policyTypes'].invalid && (insuranceForm.controls['policyTypes'].dirty || insuranceForm.controls['policyTypes'].touched)">
       <div class="text-danger" *ngIf="insuranceForm.controls['policyTypes'].errors.required">

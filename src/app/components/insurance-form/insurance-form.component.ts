@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { InsuranceService } from 'src/app/services/insurance.service';
 
 @Component({
   selector: 'app-insurance-form',
@@ -12,8 +13,10 @@ export class InsuranceFormComponent implements OnInit {
   insuranceForm: FormGroup;
   invalidPercentage: boolean;
   formData: any;
+  typeOfRisks: any;
+  typeOfCoverages: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private insuranceService: InsuranceService) {
 
     this.formData = {};
 
@@ -24,9 +27,12 @@ export class InsuranceFormComponent implements OnInit {
       coverage: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
       riskType: new FormControl('', Validators.required),
-      coveragePercentage: new FormControl('', Validators.required),
+      coveragePercentage: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
       policyTypes: new FormControl('', Validators.required),
     });
+
+    this.typeOfRisks = insuranceService.typeOfRisk;
+    this.typeOfCoverages = insuranceService.typeOfCoverage;
   }
 
   ngOnInit() {
@@ -34,31 +40,40 @@ export class InsuranceFormComponent implements OnInit {
 
   onSubmit() {
 
-    console.log(this.insuranceForm);
+    let policyTypes = [];
 
     if (this.insuranceForm.invalid) {
       return;
     }
 
-    if (this.insuranceForm.controls.riskType.value === '5' && this.insuranceForm.controls.coveragePercentage.value > 50) {
+    if (this.insuranceForm.controls.riskType.value === '4' && this.insuranceForm.controls.coveragePercentage.value > 50) {
       this.invalidPercentage = true;
       return;
     }
 
+    policyTypes = this.insuranceForm.controls.policyTypes.value.map(val => {
+      return {
+        ID: val,
+        Description: this.typeOfCoverages.find(desc => desc.id = val).description
+      };
+    });
+
+    this.formData = {
+      PolicyTypes: policyTypes,
+      Name: this.insuranceForm.controls.name.value,
+      Description: this.insuranceForm.controls.description.value,
+      InitialDate: this.insuranceForm.controls.date.value,
+      Coverage: this.insuranceForm.controls.coverage.value,
+      Price: this.insuranceForm.controls.price.value,
+      TypeOfRisk: this.insuranceForm.controls.riskType.value,
+      CoveragePercentage: this.insuranceForm.controls.coveragePercentage.value
+    };
+
+    this.insuranceService.postInsurance(this.formData).subscribe(response => console.log(response), error => {return;});
+
     this.invalidPercentage = false;
     this.insuranceForm.reset();
 
-    this.formData = {
-      PolicyTypes: [],
-      Id: 2,
-      Name: 'Insurance 11_2',
-      Description: 'Insurance 11_2 Test',
-      InitialDate: '2019-11-10T00:00:00',
-      Coverage: 4,
-      Price: 50.0,
-      TypeOfRisk: 1,
-      CoveragePercentage: 0
-  }
     this.router.navigate(['/']).then(() => { return; });
   }
 

@@ -17,8 +17,15 @@ export class InsuranceListComponent implements OnInit {
     this.insuranceService.getInsurances().subscribe(
       response => {
         this.insurances = response;
+        console.log(response);
+
       }
     );
+  }
+
+  deleteInsurance(insuranceId) {
+    console.log(insuranceId);
+
   }
 
 }
