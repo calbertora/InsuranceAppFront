@@ -12,13 +12,10 @@ export class InsuranceFormComponent implements OnInit {
 
   insuranceForm: FormGroup;
   invalidPercentage: boolean;
-  formData: any;
   typeOfRisks: any;
   typeOfCoverages: any;
 
   constructor(private router: Router, private insuranceService: InsuranceService) {
-
-    this.formData = {};
 
     this.insuranceForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -40,7 +37,8 @@ export class InsuranceFormComponent implements OnInit {
 
   onSubmit() {
 
-    let policyTypes = [];
+    let formData = {};
+    let policyTypes = '';
 
     if (this.insuranceForm.invalid) {
       return;
@@ -51,14 +49,9 @@ export class InsuranceFormComponent implements OnInit {
       return;
     }
 
-    policyTypes = this.insuranceForm.controls.policyTypes.value.map(val => {
-      return {
-        ID: val,
-        Description: this.typeOfCoverages.find(desc => desc.id = val).description
-      };
-    });
+    policyTypes = this.insuranceForm.controls.policyTypes.value.join(',');
 
-    this.formData = {
+    formData = {
       PolicyTypes: policyTypes,
       Name: this.insuranceForm.controls.name.value,
       Description: this.insuranceForm.controls.description.value,
@@ -69,7 +62,7 @@ export class InsuranceFormComponent implements OnInit {
       CoveragePercentage: this.insuranceForm.controls.coveragePercentage.value
     };
 
-    this.insuranceService.postInsurance(this.formData).subscribe(response => console.log(response), error => {return;});
+    this.insuranceService.postInsurance(formData).subscribe(response => console.log(response), error => {return;});
 
     this.invalidPercentage = false;
     this.insuranceForm.reset();

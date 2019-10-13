@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InsuranceService } from 'src/app/services/insurance.service';
+import { splitAtColon } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-insurance-list',
@@ -9,23 +10,26 @@ import { InsuranceService } from 'src/app/services/insurance.service';
 export class InsuranceListComponent implements OnInit {
 
   insurances: any;
+  policyTypes = [];
   constructor( private insuranceService: InsuranceService) {
     this.insurances = [];
+    this.policyTypes = insuranceService.typeOfCoverage;
   }
 
   ngOnInit() {
     this.insuranceService.getInsurances().subscribe(
       response => {
         this.insurances = response;
-        console.log(response);
-
       }
     );
   }
 
   deleteInsurance(insuranceId) {
     console.log(insuranceId);
+  }
 
+  getDescription(id) {
+    return this.policyTypes.find( x => x.id == id).description;
   }
 
 }
