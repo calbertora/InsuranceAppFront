@@ -9,6 +9,8 @@ export class InsuranceService {
 
   typeOfRisk: any;
   typeOfCoverage: any;
+  isEditActive = false;
+  insuranceId: number;
 
   constructor( private http: HttpClient) {
     this.typeOfCoverage = [
@@ -31,10 +33,19 @@ export class InsuranceService {
     const url = `${environment.endpoint}insurance`;
     return this.http.get(url, {});
   }
+  getInsurance(id) {
+    const url = `${environment.endpoint}insurance/${id}`;
+    return this.http.get(url, {});
+  }
 
   postInsurance( insurance: any) {
     const url = `${environment.endpoint}insurance`;
     return this.http.post(url, insurance);
+  }
+
+  putInsurance( insurance: any) {
+    const url = `${environment.endpoint}insurance`;
+    return this.http.put(url, insurance);
   }
 
   deleteInsurance( insuranceId: any) {

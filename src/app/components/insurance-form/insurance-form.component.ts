@@ -16,8 +16,10 @@ export class InsuranceFormComponent implements OnInit {
   typeOfCoverages: any;
 
   constructor(private router: Router, private insuranceService: InsuranceService) {
+    let policyType = '';
 
     this.insuranceForm = new FormGroup({
+      id: new FormControl(''),
       name: new FormControl('', Validators.required),
       description: new FormControl(''),
       date: new FormControl('', Validators.required),
@@ -27,6 +29,26 @@ export class InsuranceFormComponent implements OnInit {
       coveragePercentage: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
       policyTypes: new FormControl('', Validators.required),
     });
+
+    if (insuranceService.isEditActive) {
+      this.insuranceService.getInsurance(this.insuranceService.insuranceId).subscribe( response => {
+
+        policyType = response['PolicyTypes'];
+
+        this.insuranceForm.controls.id.setValue(response['Id']);
+        this.insuranceForm.controls.name.setValue(response['Name']);
+        this.insuranceForm.controls.description.setValue(response['Description']);
+        this.insuranceForm.controls.date.setValue(response['InitialDate']);
+        this.insuranceForm.controls.coverage.setValue(response['Coverage']);
+        this.insuranceForm.controls.price.setValue(response['Price']);
+        this.insuranceForm.controls.riskType.setValue(response['TypeOfRisk']);
+        this.insuranceForm.controls.coveragePercentage.setValue(response['CoveragePercentage']);
+        this.insuranceForm.controls.policyTypes.setValue(policyType.split(',').map( Number ));
+
+        console.log(this.insuranceForm);
+
+      });
+    }
 
     this.typeOfRisks = insuranceService.typeOfRisk;
     this.typeOfCoverages = insuranceService.typeOfCoverage;
@@ -52,6 +74,7 @@ export class InsuranceFormComponent implements OnInit {
     policyTypes = this.insuranceForm.controls.policyTypes.value.join(',');
 
     formData = {
+      Id: this.insuranceForm.controls.id.value,
       PolicyTypes: policyTypes,
       Name: this.insuranceForm.controls.name.value,
       Description: this.insuranceForm.controls.description.value,
@@ -62,7 +85,13 @@ export class InsuranceFormComponent implements OnInit {
       CoveragePercentage: this.insuranceForm.controls.coveragePercentage.value
     };
 
-    this.insuranceService.postInsurance(formData).subscribe(response => console.log(response), error => {return;});
+    if (this.insuranceService.isEditActive) {
+      this.insuranceService.isEditActive = false;
+      this.insuranceService.insuranceId = undefined;
+      this.insuranceService.putInsurance(formData).subscribe(response => console.log(response), error => {return; });
+    } else {
+      this.insuranceService.postInsurance(formData).subscribe(response => console.log(response), error => {return; });
+    }
 
     this.invalidPercentage = false;
     this.insuranceForm.reset();

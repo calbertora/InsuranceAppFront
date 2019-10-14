@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InsuranceService } from 'src/app/services/insurance.service';
 import { splitAtColon } from '@angular/compiler/src/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-insurance-list',
@@ -12,7 +13,7 @@ export class InsuranceListComponent implements OnInit {
   insurances: any;
   policyTypes = [];
   typeOfRisk = [];
-  constructor( private insuranceService: InsuranceService) {
+  constructor( private insuranceService: InsuranceService, private router: Router) {
     this.insurances = [];
     this.policyTypes = insuranceService.typeOfCoverage;
     this.typeOfRisk = insuranceService.typeOfRisk;
@@ -46,6 +47,13 @@ export class InsuranceListComponent implements OnInit {
         this.insurances = response;
       }
     );
+  }
+
+  editForm(id) {
+    this.insuranceService.isEditActive = true;
+    this.insuranceService.insuranceId = id;
+    this.router.navigate(['/insurance-form']).then(() => { return; });
+
   }
 
 }

@@ -23,7 +23,7 @@
       <td>{{ insurance.CoveragePercentage}}</td>
       <td> <div *ngFor="let policyType of insurance.PolicyTypes.split(',')">{{ getDescription(policyType) }}</div></td>
       <td>
-        <button type="button" class="btn btn-primary">Editar</button>
+        <button type="button" class="btn btn-primary" (click)="editForm(insurance.Id)">Editar</button>
         <button type="button" class="btn btn-danger" (click)="deleteInsurance(insurance.Id)">Eliminar</button>
       </td>
   </tbody>
