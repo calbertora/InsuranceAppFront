@@ -10,6 +10,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './components/home/home.component';
 import { InsuranceFormComponent } from './components/insurance-form/insurance-form.component';
 import { InsuranceListComponent } from './components/insurance-list/insurance-list.component';
+import { SaleInsuranceComponent } from './components/sale-insurance/sale-insurance.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { InsuranceListComponent } from './components/insurance-list/insurance-li
     AppComponent,
     HomeComponent,
     InsuranceFormComponent,
-    InsuranceListComponent
+    InsuranceListComponent,
+    SaleInsuranceComponent
   ],
   imports: [
     BrowserModule,

@@ -52,4 +52,9 @@ export class InsuranceService {
     const url = `${environment.endpoint}insurance/${insuranceId}`;
     return this.http.delete(url, {});
   }
+
+  postClient(usarData: any) {
+    const url = `${environment.endpoint}user`;
+    return this.http.post(url, usarData);
+  }
 }
