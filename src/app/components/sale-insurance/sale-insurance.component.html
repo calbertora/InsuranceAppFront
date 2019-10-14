@@ -1,47 +1,55 @@
-<form [formGroup]="insuranceSaleForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label>Cédula</label>
-    <input type="number" class="form-control form-control-sm" placeholder="Cédula del cliente" formControlName="id">
-    <div
-      *ngIf="insuranceSaleForm.controls['id'].invalid && (insuranceSaleForm.controls['id'].dirty || insuranceSaleForm.controls['id'].touched)">
-      <div class="text-danger" *ngIf="insuranceSaleForm.controls['id'].errors.required">
-        La cédula es requerida
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-11">
+      <form [formGroup]="insuranceSaleForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Cédula</label>
+          <input type="number" class="form-control form-control-sm" placeholder="Cédula del cliente"
+            formControlName="id">
+          <div
+            *ngIf="insuranceSaleForm.controls['id'].invalid && (insuranceSaleForm.controls['id'].dirty || insuranceSaleForm.controls['id'].touched)">
+            <div class="text-danger" *ngIf="insuranceSaleForm.controls['id'].errors.required">
+              La cédula es requerida
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nombre del cliente</label>
+          <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre del cliente"
+            formControlName="name">
+          <div
+            *ngIf="insuranceSaleForm.controls['name'].invalid && (insuranceSaleForm.controls['name'].dirty || insuranceSaleForm.controls['name'].touched)">
+            <div class="text-danger" *ngIf="insuranceSaleForm.controls['name'].errors.required">
+              El nombre es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Ocupación del cliente</label>
+          <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre del cliente"
+            formControlName="occupation">
+          <div
+            *ngIf="insuranceSaleForm.controls['occupation'].invalid && (insuranceSaleForm.controls['occupation'].dirty || insuranceSaleForm.controls['occupation'].touched)">
+            <div class="text-danger" *ngIf="insuranceSaleForm.controls['occupation'].errors.required">
+              La ocupación es requerida
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Seguro</label>
+          <select multiple class="form-control form-control-sm" formControlName="insurance">
+            <option *ngFor="let insurance of insurances" [value]="insurance.Id">{{ insurance.Name }}</option>
+          </select>
+          <div
+            *ngIf="insuranceSaleForm.controls['insurance'].invalid && (insuranceSaleForm.controls['insurance'].dirty || insuranceSaleForm.controls['insurance'].touched)">
+            <div class="text-danger" *ngIf="insuranceSaleForm.controls['insurance'].errors.required">
+              El seguro es requerido
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+
     </div>
   </div>
-  <div class="form-group">
-    <label>Nombre del cliente</label>
-    <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre del cliente"
-      formControlName="name">
-    <div
-      *ngIf="insuranceSaleForm.controls['name'].invalid && (insuranceSaleForm.controls['name'].dirty || insuranceSaleForm.controls['name'].touched)">
-      <div class="text-danger" *ngIf="insuranceSaleForm.controls['name'].errors.required">
-        El nombre es requerido
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Ocupación del cliente</label>
-    <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre del cliente"
-      formControlName="occupation">
-    <div
-      *ngIf="insuranceSaleForm.controls['occupation'].invalid && (insuranceSaleForm.controls['occupation'].dirty || insuranceSaleForm.controls['occupation'].touched)">
-      <div class="text-danger" *ngIf="insuranceSaleForm.controls['occupation'].errors.required">
-        La ocupación es requerida
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Seguro</label>
-    <select multiple class="form-control form-control-sm" formControlName="insurance">
-      <option *ngFor="let insurance of insurances" [value]="insurance.id">{{ insurance.Name }}</option>
-    </select>
-    <div
-      *ngIf="insuranceSaleForm.controls['insurance'].invalid && (insuranceSaleForm.controls['insurance'].dirty || insuranceSaleForm.controls['insurance'].touched)">
-      <div class="text-danger" *ngIf="insuranceSaleForm.controls['insurance'].errors.required">
-        El seguro es requerido
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
+</div>

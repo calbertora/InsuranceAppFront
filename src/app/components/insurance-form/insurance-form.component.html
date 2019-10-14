@@ -1,77 +1,98 @@
-<form [formGroup]="insuranceForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label>Nombre del seguro</label>
-    <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre de seguro"  formControlName="name">
-    <div *ngIf="insuranceForm.controls['name'].invalid && (insuranceForm.controls['name'].dirty || insuranceForm.controls['name'].touched)">
-      <div class="text-danger" *ngIf="insuranceForm.controls['name'].errors.required">
-        El nombre es requerido
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-11">
+      <form [formGroup]="insuranceForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Nombre del seguro</label>
+          <input type="text" class="form-control form-control-sm" placeholder="Ingresar nombre de seguro"
+            formControlName="name">
+          <div
+            *ngIf="insuranceForm.controls['name'].invalid && (insuranceForm.controls['name'].dirty || insuranceForm.controls['name'].touched)">
+            <div class="text-danger" *ngIf="insuranceForm.controls['name'].errors.required">
+              El nombre es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descripción del seguro</label>
+          <input type="text" class="form-control form-control-sm" placeholder="Ingresar descripción de seguro"
+            formControlName="description">
+        </div>
+        <div class="form-group">
+          <label>Fecha de inicio</label>
+          <input type="date" class="form-control form-control-sm" formControlName="date">
+          <div
+            *ngIf="insuranceForm.controls['date'].invalid && (insuranceForm.controls['date'].dirty || insuranceForm.controls['date'].touched)">
+            <div class="text-danger" *ngIf="insuranceForm.controls['date'].errors.required">
+              La fecha es requerida
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Covertura (meses)</label>
+          <input type="number" class="form-control form-control-sm" placeholder="Covertura en meses"
+            formControlName="coverage">
+          <div
+            *ngIf="insuranceForm.controls['coverage'].invalid && (insuranceForm.controls['coverage'].dirty || insuranceForm.controls['coverage'].touched)">
+            <div class="text-danger" *ngIf="insuranceForm.controls['coverage'].errors.required">
+              La covertura es requerida
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="number" step="0.01" class="form-control form-control-sm" placeholder="Precio del seguro"
+            formControlName="price">
+          <div
+            *ngIf="insuranceForm.controls['price'].invalid && (insuranceForm.controls['price'].dirty || insuranceForm.controls['price'].touched)">
+            <div class="text-danger" *ngIf="insuranceForm.controls['price'].errors.required">
+              El precio es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tipo de riesgo</label>
+          <select class="form-control form-control-sm" formControlName="riskType">
+            <option *ngFor="let typeOfRisk of typeOfRisks" [value]="typeOfRisk.id">{{ typeOfRisk.description }}</option>
+          </select>
+          <div
+            *ngIf="insuranceForm.controls['riskType'].invalid && (insuranceForm.controls['riskType'].dirty || insuranceForm.controls['riskType'].touched)">
+            <div class="text-danger" *ngIf="insuranceForm.controls['riskType'].errors.required">
+              El tipo de riesgo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Porcentaje de covertura</label>
+          <input type="number" step="0.01" min="0" max="100" class="form-control form-control-sm"
+            placeholder="Porcentaje de covertura 0-100" formControlName="coveragePercentage">
+          <div
+            *ngIf="insuranceForm.controls['coveragePercentage'].invalid && (insuranceForm.controls['coveragePercentage'].dirty || insuranceForm.controls['coveragePercentage'].touched)">
+            <div class="text-danger" *ngIf="insuranceForm.controls['coveragePercentage'].errors.required">
+              El porcentaje es requerido
+            </div>
+          </div>
+          <div class="text-danger" *ngIf="invalidPercentage">
+            El riesgo es alto, el porcentaje no puede ser mayor que 50
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tipos de Covertura</label>
+          <select multiple class="form-control form-control-sm" id="exampleFormControlSelect2"
+            formControlName="policyTypes">
+            <option *ngFor="let typeOfCoverage of typeOfCoverages" [value]="typeOfCoverage.id">
+              {{ typeOfCoverage.description }}</option>
+          </select>
+          <div
+            *ngIf="insuranceForm.controls['policyTypes'].invalid && (insuranceForm.controls['policyTypes'].dirty || insuranceForm.controls['policyTypes'].touched)">
+            <div class="text-danger" *ngIf="insuranceForm.controls['policyTypes'].errors.required">
+              El tipo de covertura es requerido
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+
     </div>
   </div>
-  <div class="form-group">
-    <label>Descripción del seguro</label>
-    <input type="text" class="form-control form-control-sm"  placeholder="Ingresar descripción de seguro" formControlName="description">
-  </div>
-  <div class="form-group">
-    <label>Fecha de inicio</label>
-    <input type="date" class="form-control form-control-sm" formControlName="date">
-    <div *ngIf="insuranceForm.controls['date'].invalid && (insuranceForm.controls['date'].dirty || insuranceForm.controls['date'].touched)">
-      <div class="text-danger" *ngIf="insuranceForm.controls['date'].errors.required">
-        La fecha es requerida
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Covertura (meses)</label>
-    <input type="number" class="form-control form-control-sm" placeholder="Covertura en meses" formControlName="coverage">
-    <div *ngIf="insuranceForm.controls['coverage'].invalid && (insuranceForm.controls['coverage'].dirty || insuranceForm.controls['coverage'].touched)">
-      <div class="text-danger" *ngIf="insuranceForm.controls['coverage'].errors.required">
-        La covertura es requerida
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Precio</label>
-    <input type="number" step="0.01" class="form-control form-control-sm" placeholder="Precio del seguro" formControlName="price">
-    <div *ngIf="insuranceForm.controls['price'].invalid && (insuranceForm.controls['price'].dirty || insuranceForm.controls['price'].touched)">
-      <div class="text-danger" *ngIf="insuranceForm.controls['price'].errors.required">
-        El precio es requerido
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Tipo de riesgo</label>
-    <select class="form-control form-control-sm" formControlName="riskType">
-        <option *ngFor="let typeOfRisk of typeOfRisks" [value]="typeOfRisk.id">{{ typeOfRisk.description }}</option>
-    </select>
-    <div *ngIf="insuranceForm.controls['riskType'].invalid && (insuranceForm.controls['riskType'].dirty || insuranceForm.controls['riskType'].touched)">
-      <div class="text-danger" *ngIf="insuranceForm.controls['riskType'].errors.required">
-        El tipo de riesgo es requerido
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Porcentaje de covertura</label>
-    <input type="number" step="0.01" min="0" max="100"class="form-control form-control-sm" placeholder="Porcentaje de covertura 0-100" formControlName="coveragePercentage">
-    <div *ngIf="insuranceForm.controls['coveragePercentage'].invalid && (insuranceForm.controls['coveragePercentage'].dirty || insuranceForm.controls['coveragePercentage'].touched)">
-      <div class="text-danger" *ngIf="insuranceForm.controls['coveragePercentage'].errors.required">
-        El porcentaje es requerido
-      </div>
-    </div>
-    <div class="text-danger" *ngIf="invalidPercentage">
-      El riesgo es alto, el porcentaje no puede ser mayor que 50
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Tipos de Covertura</label>
-    <select multiple class="form-control form-control-sm" id="exampleFormControlSelect2" formControlName="policyTypes">
-      <option *ngFor="let typeOfCoverage of typeOfCoverages" [value]="typeOfCoverage.id">{{ typeOfCoverage.description }}</option>
-    </select>
-    <div *ngIf="insuranceForm.controls['policyTypes'].invalid && (insuranceForm.controls['policyTypes'].dirty || insuranceForm.controls['policyTypes'].touched)">
-      <div class="text-danger" *ngIf="insuranceForm.controls['policyTypes'].errors.required">
-        El tipo de covertura es requerido
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
+</div>

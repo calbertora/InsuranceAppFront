@@ -45,6 +45,7 @@ export class SaleInsuranceComponent implements OnInit {
       insurance: clientInsurances
     };
 
+    this.insuranceService.postClient(formData).subscribe(response => console.log(response));
   }
 
 }
