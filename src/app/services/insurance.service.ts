@@ -36,4 +36,9 @@ export class InsuranceService {
     const url = `${environment.endpoint}insurance`;
     return this.http.post(url, insurance);
   }
+
+  deleteInsurance( insuranceId: any) {
+    const url = `${environment.endpoint}insurance/${insuranceId}`;
+    return this.http.delete(url, {});
+  }
 }

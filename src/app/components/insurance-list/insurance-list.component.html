@@ -19,7 +19,7 @@
       <td>{{ insurance.InitialDate}}</td>
       <td>{{ insurance.Coverage}} meses</td>
       <td>{{ insurance.Price}}</td>
-      <td>{{ insurance.TypeOfRisk}}</td>
+      <td>{{ getTypeOfRisk(insurance.TypeOfRisk)}}</td>
       <td>{{ insurance.CoveragePercentage}}</td>
       <td> <div *ngFor="let policyType of insurance.PolicyTypes.split(',')">{{ getDescription(policyType) }}</div></td>
       <td>
